@@ -81,7 +81,7 @@ public class FriendshipGraphATest {
 		graphA.addEdge(p4, p2);
 		assertEquals(3, graphA.getEdgeNum());
 
-		/* duplicate edge case */
+		/* duplicated edge case */
 		expectedEx.expect(IllegalArgumentException.class);
 		expectedEx.expectMessage("Duplicated edge");
 		graphA.addEdge(p1, p2);
