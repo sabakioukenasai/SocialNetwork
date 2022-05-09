@@ -72,7 +72,7 @@ public class FriendshipGraphBTest {
 		graphB.addVertex(bob);
 		graphB.addEdge(mike, bob);
 
-		graphB.addEdge(mike1, bob);		/* this operation should throw an exception, but not */
+		graphB.addEdge(mike1, bob);		/* this operation will throw an exception */
 		
 		/* Test */
 		assertEquals(0, graphB.getEdgeNum());

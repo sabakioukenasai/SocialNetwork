@@ -66,12 +66,8 @@ public class FriendshipGraphA {
 	 * the same name with some vertex in the graph
 	 * */
 	public void addVertex(PersonA pA) {
-//		if (vertexes.contains(pA))
-//			throw new IllegalArgumentException("Existed vertex");
-		for (PersonA p : vertexes) {
-			if (p.getName() == pA.getName())
-				throw new IllegalArgumentException("Existed vertex");
-		}
+		if (vertexes.contains(pA))
+			throw new IllegalArgumentException("Existed vertex");
 		vertexes.add(pA);
 	}
 	
@@ -87,28 +83,12 @@ public class FriendshipGraphA {
 	 * @exception IllegalArgumentException if edge <srcA, dstA> has already existed in the graph
 	 * */
 	public void addEdge(PersonA srcA, PersonA dstA){
-		boolean flag = false;
-		for (PersonA p : vertexes) {
-			if (p.getName() == srcA.getName()) {
-				flag = true;
-				break;
-			}
-		}
-		if (!flag)
-//		if (!vertexes.contains(srcA))
+		if (!vertexes.contains(srcA))
 			throw new IllegalArgumentException("srcA not existed in the graph");
-		flag = false;
-		for (PersonA p : vertexes) {
-			if (p.getName() == dstA.getName()) {
-				flag = true;
-				break;
-			}
-		}
-		if (!flag)
-//		if (!vertexes.contains(dstA))
+		if (!vertexes.contains(dstA))
 			throw new IllegalArgumentException("dstA not existed in the graph");
 		
-		if (srcA.isKnows(dstA))
+		if (srcA.isKnows(dstA))					// Check if duplicate edges exist
 			throw new IllegalArgumentException("Duplicated edge");
 		else 
 			srcA.addKnows(dstA);

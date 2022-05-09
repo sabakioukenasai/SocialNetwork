@@ -67,12 +67,8 @@ public class FriendshipGraphB {
 	 * the same name with some vertex in the graph
 	 * */
 	public void addVertex(PersonB pB) {
-		for (PersonB p : vertexes) {
-			if (p.getName() == pB.getName())
-				throw new IllegalArgumentException("Existed vertex");
-		}
-//		if (vertexes.contains(pB))
-//			throw new IllegalArgumentException("Existed vertex");	
+		if (vertexes.contains(pB))
+			throw new IllegalArgumentException("Existed vertex");	
 		vertexes.add(pB);
 		edges.put(pB, new HashSet<>());
 	}
@@ -89,38 +85,16 @@ public class FriendshipGraphB {
 	 * @exception IllegalArgumentException if edge <srcA, dstA> has already existed in the graph
 	 * */
 	public void addEdge(PersonB srcB, PersonB dstB) {
-		boolean flag = false;
-		for (PersonB p : vertexes) {
-			if (p.getName() == srcB.getName()) {
-				flag = true;
-				break;
-			}
-		}
-		if (!flag)
-//		if (!vertexes.contains(srcB))
+		if (!vertexes.contains(srcB))
 			throw new IllegalArgumentException("srcB not existed in the graph");
-		flag = false;
-		for (PersonB p : vertexes) {
-			if (p.getName() == dstB.getName()) {
-				flag = true;
-				break;
-			}
-		}
-		if (!flag)
-//		if (!vertexes.contains(dstB))				// As we guarantee each key has its value.
+		if (!vertexes.contains(dstB))
 			throw new IllegalArgumentException("dstB not existed in the graph");
 		
-		if (!edges.containsKey(srcB)) {		// 如果字典中不包含键值 src
-			Set<PersonB> knows = new HashSet<>();	// 新建一项加入到字典中
-			knows.add(dstB);
-			edges.put(srcB, knows);
-		}
-		else {
-			if (edges.get(srcB).contains(dstB))		// Check if duplicate edges exist
-				throw new IllegalArgumentException("There must not be double edges in graph");
-			else									// 
-				edges.get(srcB).add(dstB);
-		}
+		if (edges.get(srcB).contains(dstB))		// Check if duplicate edges exist
+			throw new IllegalArgumentException("Duplicated edge");
+		else
+			edges.get(srcB).add(dstB);
+		
 	}
 	
 	/**
@@ -139,7 +113,7 @@ public class FriendshipGraphB {
 		graphB.addVertex(mike);
 		graphB.addEdge(mike, bob);
 
-		graphB.addEdge(mike, davinci);		/* this operation should throw an exception, but not */
+		graphB.addEdge(mike, davinci);		/* this operation will throw an exception */
 		System.out.println();
 	}
 }

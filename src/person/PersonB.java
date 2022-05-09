@@ -36,28 +36,28 @@ public class PersonB {
 		return name;
 	}
 	
-//	/**
-//	 * <p>Compares this string to the specified object. 
-//	 * The result is {@code true} if and only if the argument is not null 
-//	 * and is a {@code PersonB} object that has the same name as this object. </p>
-//	 * 
-//	 * @param obj an Object The object to compare this {@code PersonB} against
-//	 * @return {@code true} if the given object represents a {@code PersonB} 
-//	 * equivalent to this person, {@code false} otherwise.
-//	 * */
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (!(obj instanceof PersonB))
-//			return false;
-//		if (obj == this)
-//			return true;
-//		return ((PersonB)obj).getName().equals(this.name);
-//	}
-//	
-//	@Override
-//	public int hashCode() {
-//		return name.length() + (int)(name.charAt(0));
-//	}
+	/**
+	 * <p>Compares this string to the specified object. 
+	 * The result is {@code true} if and only if the argument is not null 
+	 * and is a {@code PersonB} object that has the same name as this object. </p>
+	 * 
+	 * @param obj an Object The object to compare this {@code PersonB} against
+	 * @return {@code true} if the given object represents a {@code PersonB} 
+	 * equivalent to this person, {@code false} otherwise.
+	 * */
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof PersonB))
+			return false;
+		if (obj == this)
+			return true;
+		return ((PersonB)obj).getName().equals(this.name);
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.length() + (int)(name.charAt(0));
+	}
 	
 	public static void main(String[] args) {
 		PersonB one = new PersonB("one");
