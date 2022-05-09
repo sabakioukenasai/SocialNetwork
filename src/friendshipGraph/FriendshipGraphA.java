@@ -66,6 +66,8 @@ public class FriendshipGraphA {
 	 * the same name with some vertex in the graph
 	 * */
 	public void addVertex(PersonA pA) {
+//		if (vertexes.contains(pA))
+//			throw new IllegalArgumentException("Existed vertex");
 		for (PersonA p : vertexes) {
 			if (p.getName() == pA.getName())
 				throw new IllegalArgumentException("Existed vertex");
@@ -93,6 +95,7 @@ public class FriendshipGraphA {
 			}
 		}
 		if (!flag)
+//		if (!vertexes.contains(srcA))
 			throw new IllegalArgumentException("srcA not existed in the graph");
 		flag = false;
 		for (PersonA p : vertexes) {
@@ -102,6 +105,7 @@ public class FriendshipGraphA {
 			}
 		}
 		if (!flag)
+//		if (!vertexes.contains(dstA))
 			throw new IllegalArgumentException("dstA not existed in the graph");
 		
 		if (srcA.isKnows(dstA))

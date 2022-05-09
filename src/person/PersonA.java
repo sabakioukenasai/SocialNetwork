@@ -82,5 +82,26 @@ public class PersonA {
 		return flags;
 	}
 	
-	
+//	/**
+//	 * <p>Compares this string to the specified object. 
+//	 * The result is {@code true} if and only if the argument is not null 
+//	 * and is a {@code PersonA} object that has the same name as this object. </p>
+//	 * 
+//	 * @param obj an Object The object to compare this {@code PersonA} against
+//	 * @return {@code true} if the given object represents a {@code PersonA} 
+//	 * equivalent to this person, {@code false} otherwise.
+//	 * */
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (!(obj instanceof PersonA))
+//			return false;
+//		if (obj == this)
+//			return true;
+//		return ((PersonA)obj).getName().equals(this.name);
+//	}
+//	
+//	@Override
+//	public int hashCode() {
+//		return name.length() + (int)(name.charAt(0));
+//	}
 }

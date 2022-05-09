@@ -63,6 +63,17 @@ public class FriendshipGraphBTest {
 		graphB.addVertex(p2);
 		graphB.addVertex(p3);
 		
+		/* Xiao Chen's test case */
+
+		PersonB mike = new PersonB("Mike");
+		PersonB mike1 = new PersonB("Mike");
+		PersonB bob = new PersonB("Bob");
+		
+		graphB.addVertex(bob);
+		graphB.addEdge(mike, bob);
+
+		graphB.addEdge(mike1, bob);		/* this operation should throw an exception, but not */
+		
 		/* Test */
 		assertEquals(0, graphB.getEdgeNum());
 		

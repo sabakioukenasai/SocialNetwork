@@ -71,7 +71,10 @@ public class FriendshipGraphB {
 			if (p.getName() == pB.getName())
 				throw new IllegalArgumentException("Existed vertex");
 		}
+//		if (vertexes.contains(pB))
+//			throw new IllegalArgumentException("Existed vertex");	
 		vertexes.add(pB);
+		edges.put(pB, new HashSet<>());
 	}
 	
 	/**
@@ -94,6 +97,7 @@ public class FriendshipGraphB {
 			}
 		}
 		if (!flag)
+//		if (!vertexes.contains(srcB))
 			throw new IllegalArgumentException("srcB not existed in the graph");
 		flag = false;
 		for (PersonB p : vertexes) {
@@ -103,6 +107,7 @@ public class FriendshipGraphB {
 			}
 		}
 		if (!flag)
+//		if (!vertexes.contains(dstB))				// As we guarantee each key has its value.
 			throw new IllegalArgumentException("dstB not existed in the graph");
 		
 		if (!edges.containsKey(srcB)) {		// 如果字典中不包含键值 src
@@ -110,10 +115,10 @@ public class FriendshipGraphB {
 			knows.add(dstB);
 			edges.put(srcB, knows);
 		}
-		else {										// 否则
-			if (edges.get(srcB).contains(dstB))		// 先检查重边是否存在
+		else {
+			if (edges.get(srcB).contains(dstB))		// Check if duplicate edges exist
 				throw new IllegalArgumentException("There must not be double edges in graph");
-			else									// 如果不存在重边则加入此边
+			else									// 
 				edges.get(srcB).add(dstB);
 		}
 	}
@@ -123,5 +128,18 @@ public class FriendshipGraphB {
 	 * */
 	public int getDistance(PersonB srcB, PersonB dstB) {
 		throw new IllegalArgumentException("Implementme");
+	}
+	
+	public static void main(String[] args) {
+		FriendshipGraphB graphB = new FriendshipGraphB();
+		PersonB mike = new PersonB("Mike");
+		PersonB bob = new PersonB("Bob");
+		PersonB davinci = new PersonB("Davinci");
+		
+		graphB.addVertex(mike);
+		graphB.addEdge(mike, bob);
+
+		graphB.addEdge(mike, davinci);		/* this operation should throw an exception, but not */
+		System.out.println();
 	}
 }
