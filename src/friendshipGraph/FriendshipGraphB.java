@@ -16,8 +16,8 @@ import person.PersonB;
 public class FriendshipGraphB {
 	
 	/* Private fields */
-	Set<PersonB> vertexes = new HashSet<>();
-	Map<PersonB, Set<PersonB>> edges = new HashMap<>();
+	private final Set<PersonB> vertexes = new HashSet<>();
+	private final Map<PersonB, Set<PersonB>> edges = new HashMap<>();
 	
 	/* Public methods */
 	/**
@@ -62,7 +62,7 @@ public class FriendshipGraphB {
 	 * <p><strong>Requires</strong>: The new vertex must not have the 
 	 * same name with any existed vertex in the graph.</p>
 	 * 
-	 * @param the new vertex to be added into the graph
+	 * @param pB the new vertex to be added into the graph
 	 * @exception IllegalArgumentException if the new vertex has
 	 * the same name with some vertex in the graph
 	 * */
@@ -98,10 +98,55 @@ public class FriendshipGraphB {
 	}
 	
 	/**
-	 * Calculate the length of the shortest path from node srcA to node srcB
+	 * Calculate the length of the shortest path from node src to node dst
+	 * 
+	 * @param srcB source of the path
+	 * @param dstB destination of the path
+	 * @return length of the path if existed, 0 if srcA == dstA, else -1.
+	 * @return IllegalArgument if srcA or srcB is null or not existed in the graph
 	 * */
 	public int getDistance(PersonB srcB, PersonB dstB) {
-		throw new IllegalArgumentException("Implementme");
+		if (srcB == null || dstB == null)
+			throw new IllegalArgumentException("Null Person");
+		if (!vertexes.contains(srcB))
+			throw new IllegalArgumentException("'"+srcB.getName()+"' not in the graph");
+		if (!vertexes.contains(dstB))
+			throw new IllegalArgumentException("'"+dstB.getName()+"' not in the graph");
+		
+		if (srcB.equals(dstB))		/* when src == dst return 0 */
+			return 0;
+		
+		int dis = 0;
+		Set<PersonB> unvisited = new HashSet<>(vertexes);	/* unvisited nodes */
+		Set<PersonB> preAs = new HashSet<>();
+		Set<PersonB> nowAs = new HashSet<>();
+
+		unvisited.remove(srcB);
+		preAs.add(srcB);
+		
+		boolean find = false;						// not find dstA
+		
+		FINDER:
+		while (!preAs.isEmpty()) {					// while we have new vertexes to visit
+			++dis;
+			for (PersonB item : preAs) {
+				for (PersonB dst : edges.get(item)) {
+					if (unvisited.remove(dst)) {
+						nowAs.add(dst);
+						if (dst.equals(dstB)) {
+							find = true;
+							break FINDER;
+						}
+					}
+				}
+			}
+			preAs.clear();
+			preAs.addAll(nowAs);
+			nowAs.clear();
+		}
+		if (!find)
+			return -1;
+		return dis;	
 	}
 	
 	public static void main(String[] args) {

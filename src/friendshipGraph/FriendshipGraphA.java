@@ -1,6 +1,7 @@
 package friendshipGraph;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import person.PersonA;
@@ -14,7 +15,7 @@ import person.PersonA;
 public class FriendshipGraphA {
 
 	/* Private fields */
-	private Set<PersonA> vertexes = new HashSet<>();
+	private final Set<PersonA> vertexes = new HashSet<>();
 	
 	/* Public methods */
 	/**
@@ -100,10 +101,63 @@ public class FriendshipGraphA {
 	}
 	
 	/**
-	 * Calculate the length of the shortest path from node srcA to node srcB
+	 * Calculate the length of the shortest path from node src to node dst
+	 * 
+	 * @param srcA source of the path
+	 * @param dstA destination of the path
+	 * @return length of the path if existed, 0 if srcA == dstA, else -1.
+	 * @return IllegalArgument if srcA or srcB is null or not existed in the graph
 	 * */
 	public int getDistance(PersonA srcA, PersonA dstA) {
-		throw new IllegalArgumentException("Implementme");
+		if (srcA == null || dstA == null)
+			throw new IllegalArgumentException("Null Person");
+		if (!vertexes.contains(srcA))
+			throw new IllegalArgumentException("'"+srcA.getName()+"' not in the graph");
+		if (!vertexes.contains(dstA))
+			throw new IllegalArgumentException("'"+dstA.getName()+"' not in the graph");
+		
+		if (srcA.equals(dstA))		/* when src == dst return 0 */
+			return 0;
+		
+		int dis = 0;
+		Set<PersonA> unvisited = new HashSet<>(vertexes);	/* unvisited nodes */
+		Set<PersonA> preAs = new HashSet<>();
+		Set<PersonA> nowAs = new HashSet<>();
+
+		unvisited.remove(srcA);
+		for (PersonA tempA : vertexes) {
+			if (tempA.equals(srcA)) {
+				preAs.add(tempA);
+				break;
+			}
+		}
+		
+		boolean find = false;						// not find dstA
+		
+		FINDER:
+		while (!preAs.isEmpty()) {					// while we have new vertexes to visit
+			++dis;
+			for (PersonA item : preAs) {			// start from each vertex
+				Iterator<PersonA> ite = unvisited.iterator();
+				while(ite.hasNext()) {
+					PersonA unv = ite.next();
+					if (item.isKnows(unv)) {
+						ite.remove();
+						nowAs.add(unv);
+						if (unv.equals(dstA)) {
+							find = true;
+							break FINDER;
+						}
+					}
+				}
+			}
+			preAs.clear();
+			preAs.addAll(nowAs);
+			nowAs.clear();
+		}
+		if (!find)
+			return -1;
+		return dis;	
 	}
 }
 

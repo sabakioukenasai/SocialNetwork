@@ -72,6 +72,8 @@ public class FriendshipGraphBTest {
 		graphB.addVertex(bob);
 		graphB.addEdge(mike, bob);
 
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Duplicated edge");
 		graphB.addEdge(mike1, bob);		/* this operation will throw an exception */
 		
 		/* Test */
@@ -99,11 +101,86 @@ public class FriendshipGraphBTest {
 		assertEquals(3, graphB.getEdgeNum());
 	}
 	
-	/**
-	 * Test getDistance
-	 * */
-	@Test
-	public void getDistanceTest() {
-		assert true;
-	}
+	// Test getDistance strategy
+		// 	 src = null, not in the graph, in the graph
+		//	 dst = null, not in the graph, in the graph
+		//	 path = not exist, src == dst, single path, multiple paths
+
+		@Test public void testGetDistanceNullPerson() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+
+			boolean flag = false;
+			try {
+				graphB.getDistance(null, null);
+			} catch (IllegalArgumentException e) {
+				flag = e.getMessage().equals("Null Person");
+			} finally {
+				assert flag;
+			}
+		}
+		
+		@Test public void testGetDistanceExcludedPerson1() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+			boolean flag = false;
+			try {
+				graphB.getDistance(new PersonB("Apple"), new PersonB("Grape"));
+			} catch (IllegalArgumentException e) {
+				flag = e.getMessage().equals("'Apple' not in the graph");
+			} finally {
+				assert flag;
+			}
+		}
+		
+		@Test public void testGetDistanceExcludedPerson2() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+			graphB.addVertex(new PersonB("Apple"));
+			boolean flag = false;
+			try {
+				graphB.getDistance(new PersonB("Apple"), new PersonB("Grape"));
+			} catch (IllegalArgumentException e) {
+				flag = e.getMessage().equals("'Grape' not in the graph");
+			} finally {
+				assert flag;
+			}
+		}
+		
+		@Test public void testGetDistanceNoPath() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+			graphB.addVertex(new PersonB("Pen"));
+			graphB.addVertex(new PersonB("Pencil"));
+			assertEquals(-1, graphB.getDistance(new PersonB("Pen"), new PersonB("Pencil")));
+		}
+		
+		@Test public void testGetDistanceOnePath() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+			graphB.addVertex(new PersonB("Pen"));
+			graphB.addVertex(new PersonB("Pencil"));
+			graphB.addVertex(new PersonB("Eraser"));
+			graphB.addVertex(new PersonB("Ruler"));
+			graphB.addEdge(new PersonB("Pen"), new PersonB("Pencil"));
+			graphB.addEdge(new PersonB("Pencil"), new PersonB("Eraser"));
+			graphB.addEdge(new PersonB("Pencil"), new PersonB("Ruler"));
+			
+			assertEquals(2, graphB.getDistance(new PersonB("Pen"), new PersonB("Eraser")));
+		}
+		
+		@Test public void testGetDistanceMultiplePaths() {
+			FriendshipGraphB graphB = new FriendshipGraphB();
+			graphB.addVertex(new PersonB("A"));
+			graphB.addVertex(new PersonB("B"));
+			graphB.addVertex(new PersonB("C"));
+			graphB.addVertex(new PersonB("D"));
+			graphB.addVertex(new PersonB("E"));
+			graphB.addVertex(new PersonB("F"));
+			graphB.addEdge(new PersonB("A"), new PersonB("B"));
+			graphB.addEdge(new PersonB("B"), new PersonB("C"));
+			graphB.addEdge(new PersonB("C"), new PersonB("F"));
+			graphB.addEdge(new PersonB("E"), new PersonB("D"));
+			graphB.addEdge(new PersonB("B"), new PersonB("D"));
+			graphB.addEdge(new PersonB("D"), new PersonB("C"));
+			graphB.addEdge(new PersonB("A"), new PersonB("E"));
+			graphB.addEdge(new PersonB("F"), new PersonB("B"));
+			
+			assertEquals(3, graphB.getDistance(new PersonB("A"), new PersonB("F")));
+		}
 }

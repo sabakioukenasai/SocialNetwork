@@ -11,7 +11,7 @@ public class PersonA {
 	
 	/* Private fields */
 	private final String name;
-	private Set<PersonA> knows;
+	private final Set<PersonA> knows;
 	
 	/* Public methods */
 	
