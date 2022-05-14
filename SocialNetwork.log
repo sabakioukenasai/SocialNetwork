@@ -1,0 +1,55 @@
+commit 86cdeacaf7b517eb7d6eda43c58881b06e4cd02e
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 14 14:32:04 2022 +0800
+
+    Version 1.3 Finished?
+
+commit 5cdccb6daf34425942a804d93608723cdfd20e9b
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 14 11:12:41 2022 +0800
+
+    Version 1.2
+
+commit 496fc25a2d9bf02c357ad68489735b8ff304a668
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Mon May 9 21:01:14 2022 +0800
+
+    Version 1.1 Overrided methods equals and hashCode
+
+commit 0eeb6f672b7da0ac6ed876555afa887b5a0d9d6b
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Mon May 9 20:34:08 2022 +0800
+
+    Version 1.0.5 Xiao Chen's test case exposed a huge vulnerability
+
+commit 913692d4f7d4beee1f3f832584fbc30bdb286db9
+Merge: 1d66ed0 b1a01db
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sun May 8 22:45:34 2022 +0800
+
+    version 1.0 It seems that a large part of the work has been completed,
+    but in fact there are many hidden dangers left:
+
+commit b1a01db8b64ae8603db7e263d236f8439aa9c1b0
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 7 11:17:07 2022 +0800
+
+    version 1.0 It seems that a large part of the work has been completed, but in fact there are many hidden dangers left
+
+commit 1d66ed0937d70000e41adbe74f34627a64b759bd
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 7 11:17:07 2022 +0800
+
+    version 1.0 It seems that a large part of the work has been completed, but in fact there are many hidden dangers left
+
+commit bff88db7d171f1d64fe1809309f224d1e554e1df
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 7 09:45:26 2022 +0800
+
+    version 0.6 add patch to method isKnows in class PersonA
+
+commit c20b0168578c64ed7ecb35c35174b2f136509835
+Author: sabakioukenasai <92242735+sabakioukenasai@users.noreply.github.com>
+Date:   Sat May 7 09:36:47 2022 +0800
+
+    version 0.5 Completed the definition of the 'naive' Person class
