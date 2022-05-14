@@ -83,15 +83,20 @@ public class FriendshipGraphA {
 	 * @exception IllegalArgumentException if edge <srcA, dstA> has already existed in the graph
 	 * */
 	public void addEdge(PersonA srcA, PersonA dstA){
-		if (!vertexes.contains(srcA))
-			throw new IllegalArgumentException("srcA not existed in the graph");
 		if (!vertexes.contains(dstA))
 			throw new IllegalArgumentException("dstA not existed in the graph");
 		
-		if (srcA.isKnows(dstA))					// Check if duplicate edges exist
+		PersonA src = null;			/* Find the certain instance stored in Vertexes */
+		for (PersonA item : vertexes)
+			if (item.equals(srcA))
+				src = item;
+		if (src == null)			/* NotFound throw exception */
+			throw new IllegalArgumentException("srcA not existed in the graph");
+		
+		if (src.isKnows(dstA))		/* Check if duplicate edges exist */
 			throw new IllegalArgumentException("Duplicated edge");
 		else 
-			srcA.addKnows(dstA);
+			src.addKnows(dstA);
 	}
 	
 	/**

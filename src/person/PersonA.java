@@ -74,12 +74,7 @@ public class PersonA {
 	public boolean isKnows(PersonA pA) {
 		if (pA.name == name)
 			throw new IllegalArgumentException("Not defined relationship between a person and itself.");
-		boolean flags = false;
-		for (PersonA eA : knows) {
-			if (eA.name == pA.name)
-				flags = true;
-		}
-		return flags;
+		return knows.contains(pA);
 	}
 	
 	/**

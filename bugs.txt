@@ -1,7 +1,0 @@
-On version 0.5:
-	PersonA.isKnows():
-		Set.contains does not work.
-
-On version 1.0
-	FriendshipGraph.getEdgeNum():
-		Map.containsKey does not work.
